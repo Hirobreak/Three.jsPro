@@ -40,9 +40,9 @@
 			var skyboxMesh = new THREE.Mesh(skyboxGeom , meshFaceMaterial );
 			//skyboxMesh.material = THREE.BackSide;
 			skyboxMesh.scale.x = -1;
-			scene.add(skyboxMesh);
+			//scene.add(skyboxMesh);
 			//plano/////////////////////////////////
-			var planeGeom = new THREE.PlaneGeometry(300, 300, 2, 2); //definimos un plano de dimensiones 60x60
+			var planeGeom = new THREE.PlaneGeometry(300, 300, 1, 1); //definimos un plano de dimensiones 60x60
 			var planeMat = new THREE.MeshPhongMaterial({map: THREE.ImageUtils.loadTexture('images/cesped.jpeg')});//definimos el color del plano
 			var planeMat3 = new THREE.MeshPhongMaterial({map: THREE.ImageUtils.loadTexture('images/test.png')});
 			var planeMat2 = new THREE.MeshPhongMaterial({map: THREE.ImageUtils.loadTexture('images/wooden.jpg')});
@@ -132,7 +132,7 @@
 			spher2.castShadow = true; //habilitamos la proyección de sombra
 			spher2.position.x=10;
 			spher2.position.y =3;
-			sphere.position.z=-10;
+			spher2.position.z=-10;
 			var spher3Geom = new THREE.SphereGeometry(3, 20, 20); //Definimos la esferita
 			var spher3Mat3 = new THREE.MeshPhongMaterial({map: THREE.ImageUtils.loadTexture('images/golf.jpg')});
 			var spher3 = new THREE.Mesh(spher2Geom, spher3Mat3);
@@ -226,6 +226,23 @@
 			window.addEventListener('resize', onWindowResize, false); //evento que ajusta la ventana de visualización
 			//Inicialización de variable de controles
 			var gui = new dat.GUI(); 
+			
+			
+				// Picking stuff
+
+	projector = new THREE.Projector();
+	mouseVector = new THREE.Vector3();
+
+	// User interaction
+	window.addEventListener( 'click', click, false );
+
+
+
+
+
+			
+			
+			
 			
 			//Folders para mejor presentación
 			
@@ -330,6 +347,32 @@
 				render();
 			}
 			render(); //llamo al renderizado
+			
+				function click( e ) {
+		
+		mouseVector.x = 2 * (e.clientX / window.innterWidth) - 1;
+		mouseVector.y = 1 - 2 * ( e.clientY / window.innerHeight );
+
+		var raycaster = projector.pickingRay( mouseVector.clone(), camera ),
+			intersects = raycaster.intersectObjects( scene.children );
+
+		<!-- scene.children.forEach(function( sphere ) { -->
+			<!-- sphere.material.color.setRGB( sphere.grayness, sphere.grayness, sphere.grayness ); -->
+		<!-- }); -->
+
+			
+		for( var i = 0; i < intersects.length; i++ ) {
+			var intersection = intersects[ i ],
+				obj = intersection.object;
+			obj.position.y+=10;
+			obj.position.x+=10;
+			obj.position.z+=10;
+			obj.material.color.setRGB( 1.0 - i / intersects.length, 0, 0 );
+		}
+
+		
+	}
+			
 			
 		</script>
 	</body>
