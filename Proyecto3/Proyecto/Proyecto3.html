@@ -80,28 +80,28 @@
 			var caja = new Physijs.BoxMesh(cajaGeom, cajaMat);//juntamos la textura y la forma para obtener el objeto
 			caja.castShadow = true;//habilitamos sombra
 			caja.position.x=-135;//definimos la posición inicial
-			caja.position.y=100;
+			caja.position.y=7;
 			caja.position.z=135;
 			scene.add(caja);
 			var caja2 = new Physijs.BoxMesh(cajaGeom, cajaMat,10,{restitution: 0.3,friction: 0.5});//juntamos la textura y la forma para obtener el objeto
 			caja2.castShadow = true;//habilitamos sombra
 			caja2.position.x=-125;//definimos la posición inicial
-			caja2.position.y=100;
+			caja2.position.y=7;
 			caja2.position.z=125;
 			caja2.rotation.y=0.75*Math.PI;
 			scene.add(caja2);
 			var caja3 = new Physijs.BoxMesh(cajaGeom, cajaMat,10,{restitution: 0.3,friction: 0.5});//juntamos la textura y la forma para obtener el objeto
 			caja3.castShadow = true;//habilitamos sombra
 			caja3.position.x=-130;//definimos la posición inicial
-			caja3.position.y=100;
+			caja3.position.y=7;
 			caja3.position.z=130;
 			caja3.rotation.y=1.2*Math.PI;
 			scene.add(caja3);
 			
 			//Paredes////////////////////
 			var cubeGeom = new THREE.CubeGeometry(50, 14, 15);//definimos las dimensiones del cubo x, y, z
-			var cubeMat = Physijs.createMaterial(new THREE.MeshPhongMaterial({map: THREE.ImageUtils.loadTexture('images/bricks.JPG')}),0.7,0.1);
-			var wall = new Physijs.BoxMesh(cubeGeom, cubeMat,1000000,{restitution: 10000.3,friction: 10000.5});//juntamos la textura y la forma para obtener el objeto
+			var cubeMat = Physijs.createMaterial(new THREE.MeshPhongMaterial({map: THREE.ImageUtils.loadTexture('images/bricks.JPG')}),0.7,0.9);
+			var wall = new Physijs.BoxMesh(cubeGeom, cubeMat,5000,{restitution: 0.8,friction: 0.9});//juntamos la textura y la forma para obtener el objeto
 			wall.castShadow = true;//habilitamos sombra
 			wall.position.x=55;//definimos la posición inicial
 			wall.position.y=7;
@@ -110,8 +110,8 @@
 			scene.add(wall)
 			
 			var cubeGeom2 = new THREE.CubeGeometry(50, 14, 15);//definimos las dimensiones del cubo x, y, z
-			var cube2Mat = Physijs.createMaterial(new THREE.MeshPhongMaterial({map: THREE.ImageUtils.loadTexture('images/woodwall.jpg')}),0.7,0.1);
-			var wall2 = new Physijs.BoxMesh(cubeGeom2, cube2Mat,1000,{restitution: 0.3,friction: 0.5});//juntamos la textura y la forma para obtener el objeto
+			var cube2Mat = Physijs.createMaterial(new THREE.MeshPhongMaterial({map: THREE.ImageUtils.loadTexture('images/woodwall.jpg')}),0.7,0.9);
+			var wall2 = new Physijs.BoxMesh(cubeGeom2, cube2Mat,5000,{restitution: 0.8,friction: 0.9});//juntamos la textura y la forma para obtener el objeto
 			wall2.castShadow = true;//habilitamos sombra
 			wall2.position.x=-55;//definimos la posición inicial
 			wall2.position.y=7;
@@ -120,8 +120,8 @@
 			scene.add(wall2)
 			
 			var cubeGeom3 = new THREE.CubeGeometry(50, 14, 15);//definimos las dimensiones del cubo x, y, z
-			var cube3Mat = Physijs.createMaterial(new THREE.MeshPhongMaterial({map: THREE.ImageUtils.loadTexture('images/graffiti.jpg')}),0.7,0.1);
-			var wall3 = new Physijs.BoxMesh(cubeGeom3, cube3Mat,1000,{restitution: 0.3,friction: 0.5});//juntamos la textura y la forma para obtener el objeto
+			var cube3Mat = Physijs.createMaterial(new THREE.MeshPhongMaterial({map: THREE.ImageUtils.loadTexture('images/graffiti.jpg')}),0.7,0.9);
+			var wall3 = new Physijs.BoxMesh(cubeGeom3, cube3Mat,5000,{restitution: 0.8,friction: 0.9});//juntamos la textura y la forma para obtener el objeto
 			wall3.castShadow = true;//habilitamos sombra
 			wall3.position.x=0;//definimos la posición inicial
 			wall3.position.y=7;
@@ -132,21 +132,21 @@
 			//esferas////////////////////////////
 			var sphereGeom = new THREE.SphereGeometry(3, 20, 20); //Definimos las dimensiones de la esfera
 			var sphereMat = Physijs.createMaterial(new THREE.MeshPhongMaterial({map: THREE.ImageUtils.loadTexture('images/wood.bmp')}),0.1,0.2);//inicializamos textura de color azul
-			var sphere = new Physijs.SphereMesh(sphereGeom, sphereMat,0,{restitution: 100,friction: 0});//las juntamos en una figura
+			var sphere = new Physijs.SphereMesh(sphereGeom, sphereMat,50,{restitution: 0.5,friction: 0.5});//las juntamos en una figura
 			sphere.castShadow = true; //habilitamos la proyección de sombra
 			sphere.position.x=10;//definimos la posición inicial
 			sphere.position.y=50;
 			sphere.position.z=10;
 			var spher2Geom = new THREE.SphereGeometry(3, 20, 20); //Definimos la esferita
 			var spher2Mat2 = Physijs.createMaterial(new THREE.MeshPhongMaterial({map: THREE.ImageUtils.loadTexture('images/marble.bmp')}),0.1,0.1);
-			var spher2 = new Physijs.SphereMesh(spher2Geom, spher2Mat2,0,{restitution: 100,friction: 0});
+			var spher2 = new Physijs.SphereMesh(spher2Geom, spher2Mat2,50,{restitution: 0.5,friction: 0.5});
 			spher2.castShadow = true; //habilitamos la proyección de sombra
 			spher2.position.x=10;
 			spher2.position.y =50;
 			spher2.position.z=-10;
 			var spher3Geom = new THREE.SphereGeometry(3, 20, 20); //Definimos la esferita
 			var spher3Mat3 = Physijs.createMaterial(new THREE.MeshPhongMaterial({map: THREE.ImageUtils.loadTexture('images/golf.jpg')}),0.1,0.15);
-			var spher3 = new Physijs.SphereMesh(spher2Geom, spher3Mat3,0,{restitution: 100,friction: 0});
+			var spher3 = new Physijs.SphereMesh(spher2Geom, spher3Mat3,50,{restitution: 0.5,friction: 0.5});
 			spher3.castShadow = true; //habilitamos la proyección de sombra
 			spher3.position.x=-10;
 			spher3.position.y =50;
@@ -295,40 +295,64 @@
 				skyboxMesh.position.y=0
 				skyboxMesh.position.z=0
 				
+				var dife1e2 = Math.sqrt(Math.pow(sphere.position.x-spher2.position.x, 2)+Math.pow(sphere.position.z-spher2.position.z, 2));
+				var dife1e3 = Math.sqrt(Math.pow(sphere.position.x-spher3.position.x, 2)+Math.pow(sphere.position.z-spher3.position.z, 2));
+				var dife3e2 = Math.sqrt(Math.pow(spher3.position.x-spher2.position.x, 2)+Math.pow(spher3.position.z-spher2.position.z, 2));
 				//MOV FIRST SPHERE
 				sphere.position.y=3;
-				
 				if (sphere.position.x>posfx1+1 || sphere.position.x<posfx1-1){
-					sphere.rotation.z-=desp1x/100;
-					sphere.position.x+=desp1x/100;
-					//sphere.position.set(move, 0, move);
+					if(!(dife1e2<7 && ((sphere.position.x-spher2.position.x<0 && desp1x>0) || (spher2.position.x-sphere.position.x<0 && desp1x<0)))){
+						if(!(dife1e3<7 && ((sphere.position.x-spher3.position.x<0 && desp1x>0) || (spher3.position.x-sphere.position.x<0 && desp1x<0)))){
+							sphere.rotation.z-=desp1x/100;
+							sphere.position.x+=desp1x/120;
+						}
+					}
 				}
 				if (sphere.position.z>posfz1+1 || sphere.position.z<posfz1-1){
-					sphere.rotation.x+=desp1z/100;
-					sphere.position.z+=desp1z/100;
+					if(!(dife1e2<7 && ((sphere.position.z-spher2.position.z<0 && desp1z>0) || (spher2.position.z-sphere.position.z<0 && desp1z<0)))){
+						if(!(dife1e3<7 && ((sphere.position.z-spher3.position.z<0 && desp1z>0) || (spher3.position.z-sphere.position.z<0 && desp1z<0)))){
+							sphere.rotation.x+=desp1z/100;
+							sphere.position.z+=desp1z/120;
+						}
+					}
 				}
 				
 				//MOV SECOND SPHERE
 				spher2.position.y=3;
 				if (spher2.position.x>posfx2+1 || spher2.position.x<posfx2-1){
-					spher2.rotation.z-=desp2x/100;
-					spher2.position.x+=desp2x/100;
+					if(!(dife1e2<7 && ((spher2.position.x-sphere.position.x<0 && desp2x>0) || (sphere.position.x-spher2.position.x<0 && desp2x<0)))){
+						if(!(dife3e2<7 && ((spher2.position.x-spher3.position.x<0 && desp2x>0) || (spher3.position.x-spher2.position.x<0 && desp2x<0)))){
+							spher2.rotation.z-=desp2x/100;
+							spher2.position.x+=desp2x/120;
+						}
+					}
 				}
 				if (spher2.position.z>posfz2+1 || spher2.position.z<posfz2-1){
-					spher2.rotation.x+=desp2z/100;
-					spher2.position.z+=desp2z/100;
+					if(!(dife1e2<7 && ((spher2.position.z-sphere.position.z<0 && desp2z>0) || (sphere.position.z-spher2.position.z<0 && desp2z<0)))){
+						if(!(dife3e2<7 && ((spher2.position.z-spher3.position.z<0 && desp2z>0) || (spher3.position.z-spher2.position.z<0 && desp2z<0)))){
+							spher2.rotation.x+=desp2z/100;
+							spher2.position.z+=desp2z/120;
+						}
+					}
 				}
 				//MOV THIRD SPHERE
 				spher3.position.y=3;
 				if (spher3.position.x>posfx3+1 || spher3.position.x<posfx3-1){
-					spher3.rotation.z-=desp3x/100;
-					spher3.position.x+=desp3x/100;
+					if(!(dife1e3<7 && ((spher3.position.x-sphere.position.x<0 && desp3x>0) || (sphere.position.x-spher3.position.x<0 && desp3x<0)))){
+						if(!(dife3e2<7 && ((spher3.position.x-spher2.position.x<0 && desp3x>0) || (spher2.position.x-spher3.position.x<0 && desp3x<0)))){
+							spher3.rotation.z-=desp3x/100;
+							spher3.position.x+=desp3x/110;
+						}
+					}
 				}
 				if (spher3.position.z>posfz3+1 || spher3.position.z<posfz3-1){
-					spher3.rotation.x+=desp3z/100;
-					spher3.position.z+=desp3z/100;
+					if(!(dife1e3<7 && ((spher3.position.z-sphere.position.z<0 && desp3z>0) || (sphere.position.z-spher3.position.z<0 && desp3z<0)))){
+						if(!(dife3e2<7 && ((spher3.position.z-spher2.position.z<0 && desp3z>0) || (spher2.position.z-spher3.position.z<0 && desp3z<0)))){
+							spher3.rotation.x+=desp3z/100;
+							spher3.position.z+=desp3z/110;
+						}
+					}
 				}
-				
 				
 				if (controls.texsph1 == 1){ 
 					sphere.material = sphereMat;
