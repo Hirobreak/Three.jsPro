@@ -1,0 +1,434 @@
+*Autores: Roberto Yonc&oacute;n, Kevin Filella, Pedro I&ntilde;iguez  
+*T&iacute;tulo: Proyecto 2 Gr&aacute;ficos por Computadora - Primer T&eacute;rmino 2014 - 2015
+*Use in FireFox
+<html>
+	<head>
+		<title> Graficos por Computadora </title>
+		<style> canvas {
+					width: 100%;
+					height: 100%;
+				} </style>
+				
+	</head>
+	<body>
+		<script src="js/libs/three.min.js"> </script>
+		<script src="js/libs/TrackballControls.js"> </script>
+		<script src="js/libs/dat.gui.js"></script>
+		<script src="models/trees_1.js"></script>
+		<script>	
+			var desp1x=0;
+			var desp1z=0;
+			var desp2x=0;
+			var desp2z=0;
+			var desp3x=0;
+			var desp3z=0;
+			//creación de la escena
+			var scene = new THREE.Scene();
+			//establecemos la cámara, el tipo de vista y sus dimensiones.
+			var camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+			//definimos un render
+			var renderer = new THREE.WebGLRenderer();
+			//render
+			renderer.setClearColorHex(0x000000);
+			renderer.setSize(window.innerWidth, window.innerHeight); //defino el tamaño de lo que vamos a renderizar
+			document.body.appendChild(renderer.domElement);
+			renderer.shadowMapEnabled = true; //habilito el calculo de sombras en el renderizado
+			//SKYBOX///////////////////
+			var material1 = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture('images/siderr.jpg') } );
+			var material2 = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture('images/sidel.jpg') } );
+			var material3 = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture('images/top.jpg') } );
+			var material4 = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture('images/bot.jpg') } );
+			var material5 = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture('images/center.jpg') } );
+			var material6 = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture('images/sider.jpg') } );
+			var materials = [material1, material2, material3, material4, material5, material6];
+			var meshFaceMaterial = new THREE.MeshFaceMaterial( materials );
+			
+			var skyboxGeom = new THREE.CubeGeometry( 1000, 1000, 1000);
+			var skyboxMesh = new THREE.Mesh(skyboxGeom , meshFaceMaterial );
+			skyboxMesh.scale.x = -1;
+			scene.add(skyboxMesh);
+			//plano/////////////////////////////////
+			var planeGeom = new THREE.PlaneGeometry(300, 300, 1, 1); //definimos un plano de dimensiones 60x60
+			var planeMat = new THREE.MeshPhongMaterial({map: THREE.ImageUtils.loadTexture('images/cesped.jpeg')});//definimos el color del plano
+			var planeMat3 = new THREE.MeshPhongMaterial({map: THREE.ImageUtils.loadTexture('images/test.png')});
+			var planeMat2 = new THREE.MeshPhongMaterial({map: THREE.ImageUtils.loadTexture('images/wooden.jpg')});
+			var plane =new THREE.Mesh(planeGeom , planeMat); //creamos el plano juntando la textura con la forma para obtener nuestro objeto
+			plane.receiveShadow = true; //habilitamos que proyecte sombra
+			plane.rotation.x=-0.5*Math.PI; //rotamos el plano
+			plane.position.x=0//cambiamos la posición inicial del plano
+			plane.position.y=0
+			plane.position.z=0
+			scene.add(plane);//agregamos el plano a la escena
+			var planeGeom2 = new THREE.PlaneGeometry(300, 300, 2, 2); //definimos un plano de dimensiones 60x60
+			var plane2Mat = new THREE.MeshPhongMaterial({color: 0xFFFFFF});//definimos el color del plano
+			var plane2 =new THREE.Mesh(planeGeom2 , plane2Mat); //creamos el plano juntando la textura con la forma para obtener nuestro objeto
+			
+			plane2.rotation.x=0.5*Math.PI;; //rotamos el plano
+			plane2.position.x=0//cambiamos la posición inicial del plano
+			plane2.position.y=0
+			plane2.position.z=0
+			scene.add(plane2);
+			
+			//CAJITAS////
+			var cajaGeom = new THREE.CubeGeometry(8, 8, 8);//definimos las dimensiones del cubo x, y, z
+			var cajaMat = new THREE.MeshPhongMaterial({map: THREE.ImageUtils.loadTexture('images/crate.jpg')});
+			var caja = new THREE.Mesh(cajaGeom, cajaMat);//juntamos la textura y la forma para obtener el objeto
+			caja.castShadow = true;//habilitamos sombra
+			caja.position.x=-135;//definimos la posición inicial
+			caja.position.y=4;
+			caja.position.z=135;
+			scene.add(caja)
+			var caja2 = new THREE.Mesh(cajaGeom, cajaMat);//juntamos la textura y la forma para obtener el objeto
+			caja2.castShadow = true;//habilitamos sombra
+			caja2.position.x=-125;//definimos la posición inicial
+			caja2.position.y=4;
+			caja2.position.z=125;
+			caja2.rotation.y=0.75*Math.PI;
+			scene.add(caja2)
+			var caja3 = new THREE.Mesh(cajaGeom, cajaMat);//juntamos la textura y la forma para obtener el objeto
+			caja3.castShadow = true;//habilitamos sombra
+			caja3.position.x=-130;//definimos la posición inicial
+			caja3.position.y=12;
+			caja3.position.z=130;
+			caja3.rotation.y=1.2*Math.PI;
+			scene.add(caja3)
+			
+			//Paredes////////////////////
+			var cubeGeom = new THREE.CubeGeometry(50, 14, 2);//definimos las dimensiones del cubo x, y, z
+			var cubeMat = new THREE.MeshPhongMaterial({map: THREE.ImageUtils.loadTexture('images/bricks.JPG')});
+			var wall = new THREE.Mesh(cubeGeom, cubeMat);//juntamos la textura y la forma para obtener el objeto
+			wall.castShadow = true;//habilitamos sombra
+			wall.position.x=55;//definimos la posición inicial
+			wall.position.y=7;
+			wall.position.z=-75;
+			wall.rotation.y=0.25*Math.PI;
+			scene.add(wall)
+			
+			var cubeGeom2 = new THREE.CubeGeometry(50, 14, 2);//definimos las dimensiones del cubo x, y, z
+			var cube2Mat = new THREE.MeshPhongMaterial({map: THREE.ImageUtils.loadTexture('images/woodwall.jpg')});
+			var wall2 = new THREE.Mesh(cubeGeom2, cube2Mat);//juntamos la textura y la forma para obtener el objeto
+			wall2.castShadow = true;//habilitamos sombra
+			wall2.position.x=-55;//definimos la posición inicial
+			wall2.position.y=7;
+			wall2.position.z=-75;
+			wall2.rotation.y=0.75*Math.PI;
+			scene.add(wall2)
+			
+			var cubeGeom3 = new THREE.CubeGeometry(50, 14, 2);//definimos las dimensiones del cubo x, y, z
+			var cube3Mat = new THREE.MeshPhongMaterial({map: THREE.ImageUtils.loadTexture('images/graffiti.jpg')});
+			var wall3 = new THREE.Mesh(cubeGeom3, cube3Mat);//juntamos la textura y la forma para obtener el objeto
+			wall3.castShadow = true;//habilitamos sombra
+			wall3.position.x=0;//definimos la posición inicial
+			wall3.position.y=7;
+			wall3.position.z=75;
+			wall3.rotation.y=Math.PI;
+			scene.add(wall3)
+		
+			//esferas////////////////////////////
+			var sphereGeom = new THREE.SphereGeometry(3, 20, 20); //Definimos las dimensiones de la esfera
+			var sphereMat = new THREE.MeshPhongMaterial({map: THREE.ImageUtils.loadTexture('images/wood.bmp')});//inicializamos textura de color azul
+			var sphere = new THREE.Mesh(sphereGeom, sphereMat);//las juntamos en una figura
+			sphere.castShadow = true; //habilitamos la proyección de sombra
+			sphere.position.x=10;//definimos la posición inicial
+			sphere.position.y=3;
+			sphere.position.z=10;
+			var spher2Geom = new THREE.SphereGeometry(3, 20, 20); //Definimos la esferita
+			var spher2Mat2 = new THREE.MeshPhongMaterial({map: THREE.ImageUtils.loadTexture('images/marble.bmp')});
+			var spher2 = new THREE.Mesh(spher2Geom, spher2Mat2);
+			spher2.castShadow = true; //habilitamos la proyección de sombra
+			spher2.position.x=10;
+			spher2.position.y =3;
+			spher2.position.z=-10;
+			var spher3Geom = new THREE.SphereGeometry(3, 20, 20); //Definimos la esferita
+			var spher3Mat3 = new THREE.MeshPhongMaterial({map: THREE.ImageUtils.loadTexture('images/golf.jpg')});
+			var spher3 = new THREE.Mesh(spher2Geom, spher3Mat3);
+			spher3.castShadow = true; //habilitamos la proyección de sombra
+			spher3.position.x=-10;
+			spher3.position.y =3;
+			spher3.position.z=-10;
+			
+			scene.add(sphere);//agregamos la esfera a la escena
+			scene.add(spher2);//agregamos la esfera 2 a la escena
+			scene.add(spher3);
+	
+			var posfx1=sphere.position.x;
+			var posfz1=sphere.position.z;
+			var posfx2=spher2.position.x;
+			var posfz2=spher2.position.z;
+			var posfx3=spher3.position.x;
+			var posfz3=spher3.position.z;;
+			//camara
+			camera.position.x = 40;//definimos la posición para la cámara
+			camera.position.y = 80;
+			camera.position.z = 0;
+			camera.lookAt(scene.position);//le decimos a la cámara que mire hacia la escena
+			
+			//Objetos
+			create_geometry_1(scene);
+			
+			//luces
+			var ambientLight = new THREE.AmbientLight(0x444444); //creamos una luz ambiental oscura
+			scene.add(ambientLight);//la añadimos a la escena
+			
+			var dirLight = new THREE.DirectionalLight(0x777777);
+			dirLight.position.set(250, 50, 0).normalize();
+			scene.add(dirLight);
+			var dirLight2 = new THREE.DirectionalLight(0x777777);
+			dirLight2.position.set(-250, 50, 0).normalize();
+			scene.add(dirLight2);
+			var dirLight3 = new THREE.DirectionalLight(0x777777);
+			dirLight3.position.set(0, 50, 250).normalize();
+			scene.add(dirLight3);
+			var dirLight4 = new THREE.DirectionalLight(0x777777);
+			dirLight4.position.set(0, 50, -250).normalize();
+			scene.add(dirLight4);
+			var dirLight5 = new THREE.DirectionalLight(0x777777);
+			dirLight5.position.set(0, 950, 0).normalize();
+			scene.add(dirLight5);
+			
+			var spotLight = new THREE.SpotLight(0x555555);//creamos una luz artificial 
+			spotLight.position.set(80, 300, 0); //definimos la posicion la de luz artificial
+			spotLight.castShadow = true;//habilitamos que provoque sombra
+			scene.add(spotLight);//la añadimos a la escena.
+			
+			var light1 = new THREE.PointLight(0xffffff, 10, 55); //creamos una luz de enfoque
+			light1.position.set(50, 50, 50); //la colocamos en el punto (50, 50, 50)
+			scene.add(light1);//la añadimos a la escena
+			var light2 = new THREE.PointLight(0xffffff, 10, 55);//creamos otra luz de enfoque
+			light2.position.set(-50, 50, 50);
+			scene.add(light2);
+			var light3 = new THREE.PointLight(0xffffff, 10, 55);//creamos otra luz de enfoque
+			light3.position.set(50, 50, -50);
+			scene.add(light3);
+			var light4 = new THREE.PointLight(0xffffff, 10, 55);//creamos otra luz de enfoque
+			light4.position.set(-50, 50, -50);
+			scene.add(light4);
+			
+			
+			//Variables a ser utilizadas por los controles
+			//step: dará un número multiplicador, que modificará la distancia entre los rebotes de la esfera.
+			var steps=4; //parametro de traslación de la esfera
+			var stepc=3; //parametro de traslación del cubo
+			var stepp=2; //parametro de traslación de la piramide
+			var stept=1; //parametro de traslación del toroide
+			
+			//Controles
+			var controls = new function() {
+				//Serán funciones públicas con el valor inicial al momento de ejecutar el programa:
+				//factor de rotación del CUB
+				this.luz1 = false; //establesco variables que modifiquen el estado de la luz On/Off
+				this.luz2 = false; //las inicializo como apagadas
+				this.luz3 = false;
+				this.luz4 = false;
+				this.texsph1 = 1;
+				this.texsph2 = 2;
+				this.texsph3 = 3;
+				this.texfloor = 2;
+				this.texwall1 = 1;
+				this.texwall2 = 2;
+				this.texwall3 = 3;
+			}
+			//mouse tracking
+			mouseTrack = new THREE.TrackballControls(camera, renderer.domElement) //función que modifica la camara segun el movimiento del mouse
+			mouseTrack.rotateSpeed=0.8; //velocidad de rotacion de la cámara
+			mouseTrack.zoomSpeed=1.5; //velocidad de acercamiento/alejamiento de la camara
+			mouseTrack.panSpeed=1.0; //velocidad de traslación de la camara
+			mouseTrack.noZoom=false;
+			mouseTrack.noPan=false;
+			mouseTrack.staticMoving=true;
+			mouseTrack.dynamicDampingFactor = 0.3;
+			
+			window.addEventListener('resize', onWindowResize, false); //evento que ajusta la ventana de visualización
+			//Inicialización de variable de controles
+			var gui = new dat.GUI(); 
+			
+			
+				// Picking stuff
+
+			projector = new THREE.Projector();
+			mouseVector = new THREE.Vector3();
+
+			// User interaction
+			window.addEventListener( 'click', click, false );
+			
+			//Folders para mejor presentación
+			
+			var ftexSphere = gui.addFolder('Texturas');
+			ftexSphere.add(controls, 'texsph1').options({'Madera': 1, 'Marmol': 2, 'Golf': 3});
+			ftexSphere.add(controls, 'texsph2').options({'Madera': 1, 'Marmol': 2, 'Golf': 3});
+			ftexSphere.add(controls, 'texsph3').options({'Madera': 1, 'Marmol': 2, 'Golf': 3});
+			ftexSphere.add(controls, 'texfloor').options({'Cesped': 1, 'Madera': 2, 'Ajedrez': 3});
+			ftexSphere.add(controls, 'texwall1').options({'Ladrillo': 1, 'Madera': 2, 'Graffiti': 3});
+			ftexSphere.add(controls, 'texwall2').options({'Ladrillo': 1, 'Madera': 2, 'Graffiti': 3});
+			ftexSphere.add(controls, 'texwall3').options({'Ladrillo': 1, 'Madera': 2, 'Graffiti': 3});
+			
+			 //Folder 5: LUCES
+			var luces = gui.addFolder('Luces');
+			luces.add(controls, 'luz1');
+			luces.add(controls, 'luz2');
+			luces.add(controls, 'luz3');
+			luces.add(controls, 'luz4');
+			
+			//función render
+			var render =function() {
+				plane.position.x=0
+				plane.position.y=0
+				plane.position.z=0
+				plane2.position.x=0
+				plane2.position.y=0
+				plane2.position.z=0
+				skyboxMesh.position.x=0
+				skyboxMesh.position.y=0
+				skyboxMesh.position.z=0
+				
+				var dife1e2 = Math.sqrt(Math.pow(sphere.position.x-spher2.position.x, 2)+Math.pow(sphere.position.z-spher2.position.z, 2));
+				var dife1e3 = Math.sqrt(Math.pow(sphere.position.x-spher3.position.x, 2)+Math.pow(sphere.position.z-spher3.position.z, 2));
+				var dife3e2 = Math.sqrt(Math.pow(spher3.position.x-spher2.position.x, 2)+Math.pow(spher3.position.z-spher2.position.z, 2));
+				//MOV FIRST SPHERE
+				sphere.position.y=3;
+				if (sphere.position.x>posfx1+1 || sphere.position.x<posfx1-1){
+					if(!(dife1e2<7 && ((sphere.position.x-spher2.position.x<0 && desp1x>0) || (spher2.position.x-sphere.position.x<0 && desp1x<0)))){
+						sphere.rotation.z-=desp1x/100;
+						sphere.position.x+=desp1x/120;
+					}
+				}
+				if (sphere.position.z>posfz1+1 || sphere.position.z<posfz1-1){
+					if(!(dife1e2<7 && ((sphere.position.z-spher2.position.z<0 && desp1z<0) || (spher2.position.z-sphere.position.z<0 && desp1z>0)))){
+						sphere.rotation.x+=desp1z/100;
+						sphere.position.z+=desp1z/120;
+					}
+				}
+				
+				//MOV SECOND SPHERE
+				spher2.position.y=3;
+				if (spher2.position.x>posfx2+1 || spher2.position.x<posfx2-1){
+					spher2.rotation.z-=desp2x/100;
+					spher2.position.x+=desp2x/150;
+				}
+				if (spher2.position.z>posfz2+1 || spher2.position.z<posfz2-1){
+					spher2.rotation.x+=desp2z/100;
+					spher2.position.z+=desp2z/150;
+				}
+				//MOV THIRD SPHERE
+				spher3.position.y=3;
+				if (spher3.position.x>posfx3+1 || spher3.position.x<posfx3-1){
+					spher3.rotation.z-=desp3x/100;
+					spher3.position.x+=desp3x/110;
+				}
+				if (spher3.position.z>posfz3+1 || spher3.position.z<posfz3-1){
+					spher3.rotation.x+=desp3z/100;
+					spher3.position.z+=desp3z/110;
+				}
+				if (controls.texsph1 == 1){ 
+					sphere.material = sphereMat;
+				} else if (controls.texsph1 == 2){
+					sphere.material = spher2Mat2;
+				} else if (controls.texsph1 == 3){
+					sphere.material = spher3Mat3;
+				}
+				if (controls.texsph2 == 1){ 
+					spher2.material = sphereMat;
+				} else if (controls.texsph2 == 2){
+					spher2.material = spher2Mat2;
+				} else if (controls.texsph2 == 3){
+					spher2.material = spher3Mat3;
+				}
+				if (controls.texsph3 == 1){ 
+					spher3.material = sphereMat;
+				} else if (controls.texsph3 == 2){
+					spher3.material = spher2Mat2;
+				} else if (controls.texsph3 == 3){
+					spher3.material = spher3Mat3;
+				}
+				if (controls.texfloor == 1){ 
+					plane.material = planeMat;
+				} else if (controls.texfloor == 2){
+					plane.material = planeMat2;
+				} else if (controls.texfloor == 3){
+					plane.material = planeMat3;
+				}
+				if (controls.texwall1 == 1){ 
+					wall.material = cubeMat;
+				} else if (controls.texwall1 == 2){
+					wall.material = cube2Mat;
+				} else if (controls.texwall1 == 3){
+					wall.material = cube3Mat;
+				}
+				if (controls.texwall2 == 1){ 
+					wall2.material = cubeMat;
+				} else if (controls.texwall2 == 2){
+					wall2.material = cube2Mat;
+				} else if (controls.texwall2 == 3){
+					wall2.material = cube3Mat;
+				}
+				if (controls.texwall3 == 1){ 
+					wall3.material = cubeMat;
+				} else if (controls.texwall3 == 2){
+					wall3.material = cube2Mat;
+				} else if (controls.texwall3 == 3){
+					wall3.material = cube3Mat;
+				}
+				
+				if(controls.luz1==false){ //segun el estado del checkbox activo o no la luz 1
+					light1.distance=1; 
+				}else{
+					light1.distance=55;
+				}
+				if(controls.luz2==false){ //segun el estado del checkbox activo o no la luz 2
+					light2.distance=1;
+				}else{
+					light2.distance=55;
+				}
+				if(controls.luz3==false){ //segun el estado del checkbox activo o no la luz 3
+					light3.distance=1;
+				}else{
+					light3.distance=55;
+				}
+				if(controls.luz4==false){ //segun el estado del checkbox activo o no la luz 4
+					light4.distance=1;
+				}else{
+					light4.distance=55;
+				}
+				
+				mouseTrack.update(); //refresco el tracking del mouse
+				requestAnimationFrame(render); //llamo a renderizar
+				renderer.render(scene, camera); //paso como parametros del render la escena y la camara
+			}
+			var onWindowResize=function(){
+				camera.aspect = window.innterWidth/window.innerHeight; //refresco el tamaño de la imagen
+				camera.updateProjectionMatrix(); //actualizo la matriz de proyeccion de la camara
+				renderer.setSize(window.innerWidth, window.innerHeight); 
+				mouseTrack.handleResize(); 
+				render();
+			}
+			render(); //llamo al renderizado
+			
+		function click( e ) {
+		
+			mouseVector.x = 2 * (e.clientX / window.innerWidth) - 1;
+			mouseVector.y = 1 - 2 * ( e.clientY / window.innerHeight );
+
+			var raycaster = projector.pickingRay( mouseVector.clone(), camera ),
+			intersects = raycaster.intersectObjects( scene.children );
+			
+			if (intersects.length>0){
+			   desp1x=intersects[0].point.x-sphere.position.x;
+			   desp1z=intersects[0].point.z-sphere.position.z;
+			   posfx1=intersects[0].point.x;
+			   posfz1=intersects[0].point.z;
+			   desp2x=intersects[0].point.x-spher2.position.x+5;
+			   desp2z=intersects[0].point.z-spher2.position.z+5;
+			   posfx2=intersects[0].point.x+5;
+			   posfz2=intersects[0].point.z+5;
+			   desp3x=intersects[0].point.x-spher3.position.x-5;
+			   desp3z=intersects[0].point.z-spher3.position.z-5;
+			   posfx3=intersects[0].point.x-5;
+			   posfz3=intersects[0].point.z-5;
+		    }
+			
+		}
+			
+			
+		</script>
+	</body>
+</html>
