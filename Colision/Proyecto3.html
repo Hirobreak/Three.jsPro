@@ -316,8 +316,8 @@
 				if (spher2.position.z>posfz2+1 || spher2.position.z<posfz2-1){
 					if(!(dife1e2<7 && ((spher2.position.z-sphere.position.z<0 && desp2z<0) || (sphere.position.z-spher2.position.z<0 && desp2z>0)))){
 						if(!(dife3e2<7 && ((spher2.position.z-spher3.position.z<0 && desp2z<0) || (spher3.position.z-spher2.position.z<0 && desp2z>0)))){
-							spher2.rotation.x+=desp1z/100;
-							spher2.position.z+=desp1z/120;
+							spher2.rotation.x+=desp2z/100;
+							spher2.position.z+=desp2z/120;
 						}
 					}
 				}
@@ -436,14 +436,14 @@
 			   desp1z=intersects[0].point.z-sphere.position.z;
 			   posfx1=intersects[0].point.x;
 			   posfz1=intersects[0].point.z;
-			   desp2x=intersects[0].point.x-spher2.position.x+5;
-			   desp2z=intersects[0].point.z-spher2.position.z+5;
-			   posfx2=intersects[0].point.x+5;
-			   posfz2=intersects[0].point.z+5;
-			   desp3x=intersects[0].point.x-spher3.position.x-5;
-			   desp3z=intersects[0].point.z-spher3.position.z-5;
-			   posfx3=intersects[0].point.x-5;
-			   posfz3=intersects[0].point.z-5;
+			   desp2x=intersects[0].point.x-spher2.position.x;
+			   desp2z=intersects[0].point.z-spher2.position.z;
+			   posfx2=intersects[0].point.x;
+			   posfz2=intersects[0].point.z;
+			   desp3x=intersects[0].point.x-spher3.position.x;
+			   desp3z=intersects[0].point.z-spher3.position.z;
+			   posfx3=intersects[0].point.x;
+			   posfz3=intersects[0].point.z;
 		    }
 			
 		}
