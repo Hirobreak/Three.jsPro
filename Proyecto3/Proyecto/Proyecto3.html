@@ -19,7 +19,7 @@
 		<script type="text/javascript">	
 		
 		 Physijs.scripts.worker = 'js/libs/physijs_worker.js';
-		 Physijs.scripts.ammo = 'js/libs/examples/js/ammo.js';
+		 Physijs.scripts.ammo = 'examples/js/ammo.js';
 			var desp1x=0;
 			var desp1z=0;
 			var desp2x=0;
@@ -28,7 +28,7 @@
 			var desp3z=0;
 			//creación de la escena
 			var scene = new Physijs.Scene({ fixedTimeStep: 1 / 120 });
-			scene.setGravity(new THREE.Vector3( 0, -10, 0 ));
+			scene.setGravity(new THREE.Vector3( 0, -50, 0 ));
 			//establecemos la cámara, el tipo de vista y sus dimensiones.
 			var camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
 			//definimos un render
@@ -72,7 +72,7 @@
 			plane2.position.x=0//cambiamos la posición inicial del plano
 			plane2.position.y=0
 			plane2.position.z=0
-			scene.add(plane2);
+			//scene.add(plane2);
 			
 			//CAJITAS////
 			var cajaGeom = new THREE.CubeGeometry(8, 8, 8);//definimos las dimensiones del cubo x, y, z
@@ -80,20 +80,20 @@
 			var caja = new Physijs.BoxMesh(cajaGeom, cajaMat);//juntamos la textura y la forma para obtener el objeto
 			caja.castShadow = true;//habilitamos sombra
 			caja.position.x=-135;//definimos la posición inicial
-			caja.position.y=4;
+			caja.position.y=100;
 			caja.position.z=135;
 			scene.add(caja)
 			var caja2 = new Physijs.BoxMesh(cajaGeom, cajaMat,10,{restitution: 0.3,friction: 0.5});//juntamos la textura y la forma para obtener el objeto
 			caja2.castShadow = true;//habilitamos sombra
 			caja2.position.x=-125;//definimos la posición inicial
-			caja2.position.y=4;
+			caja2.position.y=100;
 			caja2.position.z=125;
 			caja2.rotation.y=0.75*Math.PI;
 			scene.add(caja2)
 			var caja3 = new Physijs.BoxMesh(cajaGeom, cajaMat,10,{restitution: 0.3,friction: 0.5});//juntamos la textura y la forma para obtener el objeto
 			caja3.castShadow = true;//habilitamos sombra
 			caja3.position.x=-130;//definimos la posición inicial
-			caja3.position.y=12;
+			caja3.position.y=100;
 			caja3.position.z=130;
 			caja3.rotation.y=1.2*Math.PI;
 			scene.add(caja3)
@@ -131,25 +131,25 @@
 		
 			//esferas////////////////////////////
 			var sphereGeom = new THREE.SphereGeometry(3, 20, 20); //Definimos las dimensiones de la esfera
-			var sphereMat = Physijs.createMaterial(new THREE.MeshPhongMaterial({map: THREE.ImageUtils.loadTexture('images/wood.bmp')}),0.3,0.2);//inicializamos textura de color azul
-			var sphere = new Physijs.SphereMesh(sphereGeom, sphereMat,10,{restitution: 0.3,friction: 0.5});//las juntamos en una figura
+			var sphereMat = Physijs.createMaterial(new THREE.MeshPhongMaterial({map: THREE.ImageUtils.loadTexture('images/wood.bmp')}),0.1,0.2);//inicializamos textura de color azul
+			var sphere = new Physijs.SphereMesh(sphereGeom, sphereMat,1,{restitution: 0.3,friction: 0.1});//las juntamos en una figura
 			sphere.castShadow = true; //habilitamos la proyección de sombra
 			sphere.position.x=10;//definimos la posición inicial
-			sphere.position.y=3;
+			sphere.position.y=50;
 			sphere.position.z=10;
 			var spher2Geom = new THREE.SphereGeometry(3, 20, 20); //Definimos la esferita
-			var spher2Mat2 = Physijs.createMaterial(new THREE.MeshPhongMaterial({map: THREE.ImageUtils.loadTexture('images/marble.bmp')}),0.2,0.1);
-			var spher2 = new Physijs.SphereMesh(spher2Geom, spher2Mat2,10,{restitution: 0.3,friction: 0.5});
+			var spher2Mat2 = Physijs.createMaterial(new THREE.MeshPhongMaterial({map: THREE.ImageUtils.loadTexture('images/marble.bmp')}),0.1,0.1);
+			var spher2 = new Physijs.SphereMesh(spher2Geom, spher2Mat2,1,{restitution: 0.3,friction: 0.1});
 			spher2.castShadow = true; //habilitamos la proyección de sombra
 			spher2.position.x=10;
-			spher2.position.y =3;
+			spher2.position.y =50;
 			spher2.position.z=-10;
 			var spher3Geom = new THREE.SphereGeometry(3, 20, 20); //Definimos la esferita
-			var spher3Mat3 = Physijs.createMaterial(new THREE.MeshPhongMaterial({map: THREE.ImageUtils.loadTexture('images/golf.jpg')}),0.3,0.15);
-			var spher3 = new Physijs.SphereMesh(spher2Geom, spher3Mat3,10,{restitution: 0.3,friction: 0.5});
+			var spher3Mat3 = Physijs.createMaterial(new THREE.MeshPhongMaterial({map: THREE.ImageUtils.loadTexture('images/golf.jpg')}),0.1,0.15);
+			var spher3 = new Physijs.SphereMesh(spher2Geom, spher3Mat3,1,{restitution: 0.3,friction: 0.1});
 			spher3.castShadow = true; //habilitamos la proyección de sombra
 			spher3.position.x=-10;
-			spher3.position.y =3;
+			spher3.position.y =50;
 			spher3.position.z=-10;
 			
 			scene.add(sphere);//agregamos la esfera a la escena
@@ -277,6 +277,7 @@
 			
 			//función render
 			var render =function() {
+			scene.simulate();
 				plane.position.x=0
 				plane.position.y=0
 				plane.position.z=0
@@ -289,6 +290,7 @@
 				
 				//MOV FIRST SPHERE
 				sphere.position.y=3;
+				
 				if (sphere.position.x>posfx1+1 || sphere.position.x<posfx1-1){
 					sphere.rotation.z-=desp1x/100;
 					sphere.position.x+=desp1x/100;
@@ -318,6 +320,8 @@
 					spher3.rotation.x+=desp3z/100;
 					spher3.position.z+=desp3z/100;
 				}
+				
+				
 				if (controls.texsph1 == 1){ 
 					sphere.material = sphereMat;
 				} else if (controls.texsph1 == 2){
@@ -391,7 +395,7 @@
 				
 				mouseTrack.update(); //refresco el tracking del mouse
 				requestAnimationFrame(render); //llamo a renderizar
-				scene.simulate();
+				//s
 				renderer.render(scene, camera); //paso como parametros del render la escena y la camara
 			}
 			var onWindowResize=function(){
