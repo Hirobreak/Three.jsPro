@@ -295,8 +295,8 @@
 					}
 				}
 				if (sphere.position.z>posfz1+1 || sphere.position.z<posfz1-1){
-					if(!(dife1e2<7 && ((sphere.position.z-spher2.position.z<0 && desp1z<0) || (spher2.position.z-sphere.position.z<0 && desp1z>0)))){
-						if(!(dife1e3<7 && ((sphere.position.z-spher3.position.z<0 && desp1z<0) || (spher3.position.z-sphere.position.z<0 && desp1z>0)))){
+					if(!(dife1e2<7 && ((sphere.position.z-spher2.position.z<0 && desp1z>0) || (spher2.position.z-sphere.position.z<0 && desp1z<0)))){
+						if(!(dife1e3<7 && ((sphere.position.z-spher3.position.z<0 && desp1z>0) || (spher3.position.z-sphere.position.z<0 && desp1z<0)))){
 							sphere.rotation.x+=desp1z/100;
 							sphere.position.z+=desp1z/120;
 						}
@@ -314,8 +314,8 @@
 					}
 				}
 				if (spher2.position.z>posfz2+1 || spher2.position.z<posfz2-1){
-					if(!(dife1e2<7 && ((spher2.position.z-sphere.position.z<0 && desp2z<0) || (sphere.position.z-spher2.position.z<0 && desp2z>0)))){
-						if(!(dife3e2<7 && ((spher2.position.z-spher3.position.z<0 && desp2z<0) || (spher3.position.z-spher2.position.z<0 && desp2z>0)))){
+					if(!(dife1e2<7 && ((spher2.position.z-sphere.position.z<0 && desp2z>0) || (sphere.position.z-spher2.position.z<0 && desp2z<0)))){
+						if(!(dife3e2<7 && ((spher2.position.z-spher3.position.z<0 && desp2z>0) || (spher3.position.z-spher2.position.z<0 && desp2z<0)))){
 							spher2.rotation.x+=desp2z/100;
 							spher2.position.z+=desp2z/120;
 						}
@@ -332,8 +332,8 @@
 					}
 				}
 				if (spher3.position.z>posfz3+1 || spher3.position.z<posfz3-1){
-					if(!(dife1e3<7 && ((spher3.position.z-sphere.position.z<0 && desp3z<0) || (sphere.position.z-spher3.position.z<0 && desp3z>0)))){
-						if(!(dife3e2<7 && ((spher3.position.z-spher2.position.z<0 && desp3z<0) || (spher2.position.z-spher3.position.z<0 && desp3z>0)))){
+					if(!(dife1e3<7 && ((spher3.position.z-sphere.position.z<0 && desp3z>0) || (sphere.position.z-spher3.position.z<0 && desp3z<0)))){
+						if(!(dife3e2<7 && ((spher3.position.z-spher2.position.z<0 && desp3z>0) || (spher2.position.z-spher3.position.z<0 && desp3z<0)))){
 							spher3.rotation.x+=desp3z/100;
 							spher3.position.z+=desp3z/110;
 						}
